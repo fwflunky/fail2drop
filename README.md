@@ -17,4 +17,4 @@ The ssh log must be activated in order to program work
 Additional: background work
 - `sudo apt install tmux`
 - `tmux`
-- `./fail2drop`
+- `sudo ./fail2drop`
