@@ -1,0 +1,6 @@
+[submodule "spdlog"]
+	path = spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "inotify-cpp"]
+	path = inotify-cpp
+	url = https://github.com/erikzenker/inotify-cpp

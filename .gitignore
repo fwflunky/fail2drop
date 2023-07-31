@@ -1,4 +1,2 @@
 cmake-build-debug
-inotify-cpp
-spdlog
 .idea
