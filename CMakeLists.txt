@@ -18,5 +18,5 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/inotify-cpp/src/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/spdlog/include)
 
 
-add_executable(fail2drop main.cpp src/fail2drop.cpp src/include/fail2drop.h src/util.cpp src/include/util.h)
+add_executable(fail2drop main.cpp src/proceeder.cpp src/include/proceeder.h src/util.cpp src/include/util.h src/include/dropped.h src/dropped.cpp)
 target_link_libraries(fail2drop PUBLIC inotify-cpp-static spdlog)
