@@ -7,7 +7,7 @@ A simple alternative for those who are too lazy to configure fail2ban
 
 To run this project, you will need to follow next steps
 
-- `git clone https://github.com/fwflunky/fail2drop && cd fail2drop`
+- `git clone --recursive https://github.com/fwflunky/fail2drop && cd fail2drop`
 - `cmake .`
 - `make -j2`
 - `sudo ./fail2drop`
