@@ -3,6 +3,7 @@
 //
 
 #include <filesystem>
+#include <future>
 #include "include/proceeder.h"
 #include "spdlog/spdlog.h"
 #include "include/util.h"
@@ -63,9 +64,9 @@ void fail2drop::proceeder::proceedDrop(const std::string& username, const std::s
 }
 
 void fail2drop::proceeder::run() {
-    droppedTask.threadedStorage = std::thread([instance = this](){
-        spdlog::debug("Started threadedStorage");
-        std::scoped_lock<std::mutex> lock(instance->droppedTask.storageDone);
+    droppedTask.storage = std::async(std::launch::async, [instance = this](){
+        spdlog::debug("Started storage");
+       // std::scoped_lock<std::mutex> lock(instance->droppedTask.storageDone);
         while(!instance->isShutdown) {
             {
                 std::scoped_lock<std::mutex> dlock(instance->sync);
@@ -84,9 +85,8 @@ void fail2drop::proceeder::run() {
         }
     });
 
-    droppedTask.threadedNotifier = std::thread([instance = this]() {
-        spdlog::debug("Started threadedNotifier");
-        std::scoped_lock<std::mutex> lock(instance->droppedTask.notifierDone);
+    droppedTask.notifier = std::async(std::launch::async, [instance = this]() {
+        spdlog::debug("Started notifier");
         instance->builder.run();
     });
 }
@@ -96,10 +96,8 @@ void fail2drop::proceeder::shutdown() {
     builder.stop();
     isShutdown = true;
     {
-        std::scoped_lock<std::mutex> slock(droppedTask.storageDone);
-        std::scoped_lock<std::mutex> nlock(droppedTask.notifierDone);
-        droppedTask.threadedStorage.join();
-        droppedTask.threadedNotifier.join();
+        droppedTask.storage.wait();
+        droppedTask.notifier.wait();
     }
     spdlog::debug("Done");
 }

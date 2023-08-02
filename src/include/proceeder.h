@@ -9,8 +9,7 @@
 
 namespace fail2drop {
     struct task {
-        std::thread threadedStorage, threadedNotifier;
-        std::mutex storageDone, notifierDone;
+        std::future<void> storage, notifier;
     };
 
     class proceeder {
