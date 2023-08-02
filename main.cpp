@@ -6,7 +6,7 @@
 int main() {
     spdlog::set_level(spdlog::level::debug);
     fail2drop::proceeder dropper;
-    dropper.logFile = "/home/user/CLionProjects/fail2drop/ss.log";
+    //dropper.logFile = "/home/user/CLionProjects/fail2drop/ss.log";
 
     if(!util::isRoot()){
         spdlog::error("Must be spawned as root, can't continue");
